@@ -1,3 +1,4 @@
+import Employee from "components/Employee";
 function App() {
   return (
     <div className="App bg-gray-50 min-h-screen p-6">
@@ -9,6 +10,7 @@ function App() {
           Add Employee
         </button>
       </div>
+      <Employee/>
     </div>
   );
 }
