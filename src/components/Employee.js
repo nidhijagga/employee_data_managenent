@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import EmployeeList from "components/EmployeeList";
 import EmployeeInformation from "components/EmployeeInformation";
-import employees from "../data.json";
 
-const Employee = () => {
-  const [employeeList, setEmployeeList] = useState(employees);
+const Employee = ({ employeeList, setEmployeeList }) => {
   const [selectedEmployee, setSelectedEmployee] = useState();
 
   return (

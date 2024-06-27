@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../src/style.css";
+import dayjs from "dayjs";
 
-const AddEmployeePopup = ({ setIsOpen }) => {
+const AddEmployeePopup = ({ setIsOpen, setEmployeeList }) => {
   const [startDate, setStartDate] = useState();
 
   const initialValues = {
@@ -32,7 +33,12 @@ const AddEmployeePopup = ({ setIsOpen }) => {
   });
 
   const handleSubmit = (values, { setSubmitting }) => {
-    console.log("Submitted Values:", values);
+    const payload = {
+      ...values,
+      date_of_joining: dayjs(values.date_of_joining).format("YYYY-MM-DD"),
+      id: `${values.first_name}_${values.designation}`,
+    };
+    setEmployeeList((prevState) => [...prevState, payload]);
     setIsOpen(false);
     setSubmitting(false);
   };
@@ -157,8 +163,12 @@ const AddEmployeePopup = ({ setIsOpen }) => {
                   </label>
                   <DatePicker
                     placeholderText="Select Date"
+                    name="date_of_joining"
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => {
+                      setStartDate(date);
+                      setFieldValue("date_of_joining", date);
+                    }}
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-slate-500 focus:border-slate-500 sm:text-sm"
                   />
                   <ErrorMessage

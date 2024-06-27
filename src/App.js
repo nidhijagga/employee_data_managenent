@@ -1,8 +1,10 @@
 import AddEmployeePopup from "components/AddEmployeePopup";
 import Employee from "components/Employee";
 import { useState } from "react";
+import employees from "./data.json";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const [employeeList, setEmployeeList] = useState(employees);
 
   const handleAddEmployee = () => {
     setIsOpen(true);
@@ -21,10 +23,14 @@ function App() {
           Add Employee
         </button>
       </div>
-      <Employee />
+      <Employee employeeList={employeeList} setEmployeeList={setEmployeeList} />
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-65">
-          <AddEmployeePopup setIsOpen={setIsOpen} />
+          <AddEmployeePopup
+            setIsOpen={setIsOpen}
+            employeeList={employeeList}
+            setEmployeeList={setEmployeeList}
+          />
         </div>
       )}
     </div>
